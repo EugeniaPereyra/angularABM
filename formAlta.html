@@ -1,0 +1,94 @@
+<html>
+<head>
+	<title>ABM angular PHP</title>
+	  
+		<!--?php require_once"partes/referencias.php" ;/**/?-->
+		<!--final de Estilos-->    
+
+      <!--script type="text/javascript" src="./bower_components/jquery/dist/jquery.js"></script-->
+       	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="http://www.octavio.com.ar/favicon.ico">
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/estilo.css">
+	<link rel="stylesheet" type="text/css" href="css/animacion.css">
+
+
+	<script SRC="bower_components/angular/angular.min.js" TYPE="text/javascript"></script>
+ 	<script SRC="js/app.js" TYPE="text/javascript"></script>
+</head>
+<body ng-app="angularABM" ng-controller="controlAlta">
+		<div class="CajaInicio animated bounceInRight">
+			<h1> <!--?php echo $titulo; ?--> {{DatoTest}} </h1>
+
+			<form id="FormIngreso" name="FormIngreso" enctype="multipart/form-data" novalidate>
+				<input type="checkbox" ng-model="ver"><label> VER </label>
+
+				<label>{{ver}}</label><br><br>
+
+				<input type="text" name="apellido" ng-model="persona.apellido" placeholder="ingrese apellido" required />
+				<span style="color:red" ng-show="FormIngreso.apellido.$invalid">*</span> 
+				<br>
+				<input type="text" name="nombre" ng-model="persona.nombre" placeholder="ingrese nombre" required />
+				<span style="color:red" ng-show="FormIngreso.nombre.$invalid">*</span> 
+				<br>
+				<input type="number" name="dni" ng-model="persona.dni" placeholder="ingrese dni" required /> 
+				<span style="color:red" ng-show="FormIngreso.dni.$invalid">*</span> 
+				<input type="hidden" name="idOculto" id="id" value="" />
+				<br>
+				<input type="email" name="email" ng-model="persona.email" placeholder="ingrese email" required />
+				<span style="color:red" ng-show="FormIngreso.email.$invalid">*</span> 
+				<br>
+				<input type="number" name="edad" ng-model="persona.edad" placeholder="ingrese edad" required /> 
+				<span style="color:red" ng-show="FormIngreso.edad.$invalid">*</span> 
+				<br><br>			
+				<input type="radio" name="sexo" value="male" checked ng-model="persona.sexo"> <label>Masculino</label><br>
+  				<input type="radio" name="sexo" value="female" ng-model="persona.sexo"> <label>Femenino</label>
+ 				 <br><br>
+				<input type="date" name="fechaNac" ng-model="persona.fecha" required /> 
+				<span style="color:red" ng-show="FormIngreso.fechaNac.$invalid">*</span> 
+				<br><br>
+				<select name="estadoCivil" ng-model="persona.estadoCivil">
+				  <option value="Soltero">Soltero</option>
+				  <option value="Casado">Casado</option>
+				  <option value="Viudo">Viudo</option>
+				</select>
+				<br><br>
+				<input type="password" name="clave" ng-model="persona.clave" placeholder="ingrese password"  required /> 
+				<span style="color:red" ng-show="FormIngreso.clave.$invalid">*</span> 
+				<br>
+				<input type="password" name="claveCopia" ng-model="persona.claveCopia" placeholder="ingrese nuevamente password"  required /> 
+				<span style="color:red" ng-show="FormIngreso.claveCopia.$invalid">*</span> 
+				<br>
+				<label ng-if="persona.clave!=persona.claveCopia">NO SON IGUALES --- ng-if </label><br>
+				<label ng-show="persona.clave!=persona.claveCopia">NO SON IGUALES --- ng-show </label>
+
+				<br>
+				
+				<input type="checkbox" name="lenguaje1" value="csharp" ng-model="persona.lenguaje1"><label>C#</label><br>
+				<input type="checkbox" name="lenguaje1" value="c" ng-model="persona.lenguaje2"><label>C</label><br>
+				<input type="checkbox" name="lenguaje2" value="javascipt" ng-model="persona.lenguaje3"><label>JavaScript</label><br>
+				<input type="checkbox" name="lenguaje3" value="php" ng-model="persona.lenguaje4"><label>PHP</label><br>
+				<input type="checkbox" name="lenguaje3" value="vbnet" ng-model="persona.lenguaje5"><label>VB.NET</label>
+				<br><br><br>
+				<!--
+				<input type="file" name="foto" />
+
+
+				<img  src="fotos/pordefecto.png" class="fotoform" id="foto"/>
+				<p style="  color: black;">*La foto se actualiza al guardar.</p>
+				-->
+
+				<a class="btn btn-info"  ng-disabled="FormIngreso.$invalid" name="guardar" ng-click="Guardar()"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</a><br>
+				<span style="color:red" ng-show="FormIngreso.$invalid">FALTAN DATOS!!</span>
+
+					
+				<input type="hidden" value="" id="idParaModificar" name="agregar" />
+				<input type="hidden" value="" id="hdnAgregar" name="agregar" />
+				</div>
+
+			</form>
+	</div>
+	</div>
+</body>
+</html>
