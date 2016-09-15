@@ -1,4 +1,4 @@
-var miAplicacion = angular.module('angularABM',['ui.router']);
+var miAplicacion = angular.module('angularABM',['ui.router', 'angularFileUpload']);
 
 miAplicacion.config(function($stateProvider,$urlRouterProvider){
 
@@ -67,12 +67,32 @@ miAplicacion.controller('controlPersonaMenu',function($scope, $state){
 
 });
 
-miAplicacion.controller('controlAlta',function($scope){
+miAplicacion.controller('controlAlta',function($scope,FileUploader){
+        $scope.persona={};
 
+        $scope.uploader = new FileUploader({url: 'PHP/upload.php'});
+        $scope.uploader.queueLimit = 10;
 
-});
+        $scope.Guardar=function(){
+        }
+
+      $scope.cargar = function(){
+            /** llamo a la funcion uploadAll para cargar toda la cola de archivos **/
+            $scope.uploader.uploadAll();
+            /** agrego mi funcionalidad **/
+        }
+
+                $scope.uploader.onErrorItem = function(fileItem, response, status, headers) {
+              console.info('onErrorItem', fileItem, response, status, headers);
+          };
+
+          $scope.uploader.onCompleteAll = function() {
+              console.info('Se cargo con exito');
+          };
+  });
 
 
 miAplicacion.controller('controlMenu', function($scope, $http) {
  
 });
+
