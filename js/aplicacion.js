@@ -1,6 +1,11 @@
-var miAplicacion = angular.module('angularABM',['ui.router', 'angularFileUpload']);
+var miAplicacion = angular.module('angularABM',['ui.router', 'angularFileUpload', 'satellizer']);
 
-miAplicacion.config(function($stateProvider,$urlRouterProvider){
+miAplicacion.config(function($stateProvider,$urlRouterProvider, $authProvider){
+
+$authProvider.loginUrl='angularABM/servidor/php/auth.php';
+$authProvider.tokenName='miToken';
+$authProvider.tokenPrefix='angularABM';
+$authProvider.authHearder='data';
 
   $stateProvider
 
@@ -41,6 +46,13 @@ miAplicacion.config(function($stateProvider,$urlRouterProvider){
           		templateUrl:'formAlta.html',controller:'controlAlta'
           	}
           }
+        })
+
+        .state(
+          'login',{
+          url:'/login',
+          templateUrl:'login.html',
+          controller:"controlLogin"
         })
 
   $urlRouterProvider.otherwise('/inicio');
@@ -92,7 +104,37 @@ miAplicacion.controller('controlAlta',function($scope,FileUploader){
   });
 
 
-miAplicacion.controller('controlMenu', function($scope, $http) {
+miAplicacion.controller('controlMenu', function($scope) {
+ 
+});
+
+
+miAplicacion.controller('controlLogin', function($scope, $auth) {
+
+  $scope.dato={};
+
+  $scope.Login=function(){
+
+    $auth.login(
+            {
+              usuario:$scope.dato.usuario,
+              clave:$scope.dato.clave
+            })
+
+        .then( function(response){
+          if($auth.isAuthenticated())
+          {
+            console.log("logueado");
+            console.info("info login:",$auth.getPayload());
+          }
+          else
+          {
+            console.log("No logueado");
+            console.info("info login:",$auth.getPayload());
+          }
+          console.log(response);
+        })
+  }
  
 });
 

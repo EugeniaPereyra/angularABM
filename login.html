@@ -1,50 +1,19 @@
-<html>
-<head>
-	<title>LOGIN</title>
-    <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="http://www.octavio.com.ar/favicon.ico">
-	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/estilo.css">
-	<link rel="stylesheet" type="text/css" href="css/animacion.css">
 
-
-	<script SRC="bower_components/angular/angular.min.js" TYPE="text/javascript"></script>
- 	<script SRC="js/app.js" TYPE="text/javascript"></script>
-</head>
-<body ng-app="ABMangularPHP" ng-controller="controlLogin">
-
-	<ul class="nav nav-tabs">
-		         <li  class="btn btn-info animated bounceInLeft" >
-		         	<a href="index.html">
-		         		 <span class="glyphicon glyphicon-list-alt">&nbsp;</span>
-		         		 Inicio 
-		         	</a>
-		         </li>
-      </ul>
 
 	<div class="container">
-		<div class="page-header">
-			<h1>{{DatoTest}}</h1>      
-		</div>
+	
 		<div class="CajaInicio animated bounceInRight">
 			<h1>LOGIN</h1>
 
-			<form id="FormIngreso" name="FormLogin" novalidate>
-				<input type="email" name="email" ng-model="persona.email" placeholder="ingrese email" required />
-				<span style="color:red" ng-show="FormLogin.email.$invalid">*</span> 
+			<form id="FormIngreso" name="FormLogin" >
+				<input type="email" name="email" ng-model="dato.usuario" placeholder="ingrese email"  />
 				<br>
-				<input type="password" name="clave" ng-model="persona.clave" placeholder="ingrese password"  required /> 
-				<span style="color:red" ng-show="FormLogin.clave.$invalid">*</span> 
+				<input type="password" name="clave" ng-model="dato.clave" placeholder="ingrese password"   /> 
       			<br><br>
-				<input type="button" class="btn btn-danger" value="LOGIN" ng-click="Login()" ng-disabled="FormLogin.$invalid"/>
-				<br>
-				<span style="color:red" ng-show="FormLogin.$invalid">FALTAN DATOS!!</span>
-				
+				<input type="button" class="btn btn-danger" value="LOGIN" ng-click="Login()"/>
+				<br>				
 			</form>
 		</div>
 		<div style="text-align:center">
 		</div>
 	</div>
-</body>
-</html>
