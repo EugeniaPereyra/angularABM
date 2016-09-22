@@ -112,7 +112,16 @@ miAplicacion.controller('controlMenu', function($scope) {
 miAplicacion.controller('controlLogin', function($scope, $auth) {
 
   $scope.dato={};
-
+  if($auth.isAuthenticated())
+          {
+            console.log("logueado");
+            console.info("info login:",$auth.getPayload());
+          }
+          else
+          {
+            console.log("No logueado");
+            console.info("info login:",$auth.getPayload());
+          }
   $scope.Login=function(){
 
     $auth.login(
@@ -122,6 +131,7 @@ miAplicacion.controller('controlLogin', function($scope, $auth) {
             })
 
         .then( function(response){
+           console.log(response);
           if($auth.isAuthenticated())
           {
             console.log("logueado");
@@ -132,7 +142,7 @@ miAplicacion.controller('controlLogin', function($scope, $auth) {
             console.log("No logueado");
             console.info("info login:",$auth.getPayload());
           }
-          console.log(response);
+
         })
   }
  
