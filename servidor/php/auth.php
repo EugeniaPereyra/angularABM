@@ -1,34 +1,39 @@
 <?php
+require_once '../clases/Usuario.php';
 include_once '../vendor/autoload.php';
 use \Firebase\JWT\JWT;
 
-$key = "example_key";
-$token = array(
-    "iss" => "http://example.org",
-    "aud" => "http://example.com",
-    "iat" => 1356999524,
-    "nbf" => 1357000000
-);
+$post=file_get_contents("php://input");
+$respuesta=json_decode($post);
 
-/**
- * IMPORTANT:
- * You must specify supported algorithms for your application. See
- * https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40
- * for a list of spec-compliant algorithms.
- */
+$usuarioLogueado = Usuario::TraerUsuarioLogueado($respuesta);
 
+if($usuarioLogueado)
+{
+	$key = "1234";
+	$token["usuario"] = $usuarioLogueado->email;
+	$token["id"] = $usuarioLogueado->id;
+	$token["nombre"] =$usuarioLogueado->nombre;
+	$token["pass"] = $usuarioLogueado->password;
+	$token["perfil"] = $usuarioLogueado->perfil;
+	$token["exp"] = time()+200;
 
-$key="1234";
-$token["exp"]=time()+10000;
-$token["username"]="usuario";
-$token["puesto"]="admin";
+	$jwt = JWT::encode($token, $key);
+	$array["miToken"]=$jwt;
+}
+else
+{
+	$array["miToken"]=false;
+}
 
-$jwt = JWT::encode($token, $key);
-$array["miToken"]=$jwt;
 echo( json_encode($array) );
 
 
 die();
+
+
+//--------------------------------------------------
+
 
 $decoded = JWT::decode($jwt, $key, array('HS256'));
 

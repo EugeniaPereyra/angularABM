@@ -26,25 +26,29 @@
 
 				<label>{{ver}}</label><br><br>
 
-				<input type="text" name="apellido" ng-model="persona.apellido" placeholder="ingrese apellido" required />
-				<span style="color:red" ng-show="FormIngreso.apellido.$invalid">*</span> 
+<!-- 				<input type="text" name="apellido" ng-model="persona.apellido" placeholder="ingrese apellido" required />
+				<span style="color:red" ng-show="FormIngreso.apellido.$invalid">*</span>  -->
 				<br>
 				<input type="text" name="nombre" ng-model="persona.nombre" placeholder="ingrese nombre" required />
 				<span style="color:red" ng-show="FormIngreso.nombre.$invalid">*</span> 
 				<br>
-				<input type="number" name="dni" ng-model="persona.dni" placeholder="ingrese dni" required /> 
+				<br>
+				<input type="text" name="perfil" ng-model="persona.perfil" placeholder="ingrese nombre" required />
+				<span style="color:red" ng-show="FormIngreso.perfil.$invalid">*</span> 
+				<br>
+<!-- 				<input type="number" name="dni" ng-model="persona.dni" placeholder="ingrese dni" required /> 
 				<span style="color:red" ng-show="FormIngreso.dni.$invalid">*</span> 
-				<input type="hidden" name="idOculto" id="id" value="" />
+				<input type="hidden" name="idOculto" id="id" value="" /> -->
 				<br>
 				<input type="email" name="email" ng-model="persona.email" placeholder="ingrese email" required />
 				<span style="color:red" ng-show="FormIngreso.email.$invalid">*</span> 
 				<br>
-				<input type="number" name="edad" ng-model="persona.edad" placeholder="ingrese edad" required /> 
-				<span style="color:red" ng-show="FormIngreso.edad.$invalid">*</span> 
-				<br><br>			
+<!-- 				<input type="number" name="edad" ng-model="persona.edad" placeholder="ingrese edad" required /> 
+				<span style="color:red" ng-show="FormIngreso.edad.$invalid">*</span>  -->
+<!-- 				<br><br>			
 				<input type="radio" name="sexo" value="male" checked ng-model="persona.sexo"> <label>Masculino</label><br>
-  				<input type="radio" name="sexo" value="female" ng-model="persona.sexo"> <label>Femenino</label>
- 				 <br><br>
+  				<input type="radio" name="sexo" value="female" ng-model="persona.sexo"> <label>Femenino</label> -->
+<!--  				 <br><br>
 				<input type="date" name="fechaNac" ng-model="persona.fecha" required /> 
 				<span style="color:red" ng-show="FormIngreso.fechaNac.$invalid">*</span> 
 				<br><br>
@@ -52,12 +56,12 @@
 				  <option value="Soltero">Soltero</option>
 				  <option value="Casado">Casado</option>
 				  <option value="Viudo">Viudo</option>
-				</select>
+				</select> -->
 				<br><br>
-				<input type="password" name="clave" ng-model="persona.clave" placeholder="ingrese password"  required /> 
+				<input type="password" name="clave" ng-model="persona.password" placeholder="ingrese password"  required /> 
 				<span style="color:red" ng-show="FormIngreso.clave.$invalid">*</span> 
 				<br>
-				<input type="password" name="claveCopia" ng-model="persona.claveCopia" placeholder="ingrese nuevamente password"  required /> 
+<!-- 				<input type="password" name="claveCopia" ng-model="persona.claveCopia" placeholder="ingrese nuevamente password"  required /> 
 				<span style="color:red" ng-show="FormIngreso.claveCopia.$invalid">*</span> 
 				<br>
 				<label ng-if="persona.clave!=persona.claveCopia">NO SON IGUALES --- ng-if </label><br>
@@ -70,43 +74,21 @@
 				<input type="checkbox" name="lenguaje2" value="javascipt" ng-model="persona.lenguaje3"><label>JavaScript</label><br>
 				<input type="checkbox" name="lenguaje3" value="php" ng-model="persona.lenguaje4"><label>PHP</label><br>
 				<input type="checkbox" name="lenguaje3" value="vbnet" ng-model="persona.lenguaje5"><label>VB.NET</label>
-				<br><br><br>
-				<input type="file" nv-file-select uploader="uploader" class="btn btn-primary" required/><br/>
+				<br><br><br> -->
+				<!-- FOTO -->
 				<ul>
-					<!-- Muestro los datos de los archivos a cargar -->
 			        <li ng-repeat="item in uploader.queue">
-			        	<!-- nombre del archivo -->
 			            Archivo: <span ng-bind="item.file.name"></span><br/>
-			            <!-- imagen del archivo -->
-			            <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div> 
-			            <!-- boton upload. Lo puedo usar para carar las fotos o crear
-			            	mi propia funcion y llamar a uploader.uploadAll() -->
-			            <!-- <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-			                <span class="glyphicon glyphicon-upload"></span> Upload
-			            </button> -->
-
-			            <!-- boton cancel -->            
-			            <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-			                <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-			            </button>
-
-			            <!-- boton remove -->
-			            <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-			                <span class="glyphicon glyphicon-trash"></span> Remove
+			            <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 200 }"></div> 
+			 					<div class="progress" style="">
+			                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+			                    </div>
+			            <button type="button" class="btn btn-danger " ng-click="item.remove()">
+			                <span class="glyphicon glyphicon-trash"></span> Cambiar
 			            </button>
 			        </li>		
 			    </ul>
-
-			    <div ng-show="uploader.isHTML5">
-				    <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
-				    <div nv-file-drop="" uploader="uploader">
-				        <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone">
-				            Drop zone
-				        </div>
-				    </div>
-				</div>
-
-				<input type="button" class="btn btn-success" ng-click="cargar()">
+				 <input type="file" ng-show="!uploader.queue[0] " nv-file-select uploader="uploader"/>
         
 				<!--
 				<input type="file" name="foto" />
