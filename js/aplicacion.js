@@ -182,20 +182,21 @@ miAplicacion.controller('controlPersonaAlta',function($scope, FileUploader, $htt
 
         $scope.uploader.onCompleteAll = function() {
             console.info('Se cargo con exito');
-            $http.post('servidor/nexo.php', { datos: {accion :"insertar",persona:$scope.persona}})
+            var dato=JSON.stringify($scope.persona);
+            $http.post('/persona/'+dato)
             .then(function(respuesta) {             
                  console.log(respuesta.data);
                  $state.go("persona.menu");
 
             },function errorCallback(response) {        
-                console.log( response);           
+                console.log(response);           
             });
         };
 
 });
 
 miAplicacion.controller('controlPersonaGrilla',function($scope, $http, $state){
-  $http.get('servidor/nexo.php', { params: {accion :"traer"}})
+  $http.get('ws1/personas')
   .then(function(respuesta) {       
          $scope.ListadoPersonas = respuesta.data.listado;
          console.log(respuesta.data);
