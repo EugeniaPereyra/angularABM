@@ -97,8 +97,10 @@ $app->get('/personas[/]', function ($request, $response, $args) {
 
 // ALTA
 $app->post('/persona/{persona}', function ($request, $response, $args) {
-    $respuesta=$request->getAttribute(json_decode($args);
-    Usuario::Agregar($respuesta);
+    $persona=$request->getAttribute('persona');
+    $dato=json_decode($persona);
+    $response->write(Usuario::Agregar($dato));
+    return $response
 });
 
 // // MODIFICAR UNO
