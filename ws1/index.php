@@ -35,39 +35,9 @@ $app = new Slim\App();
 *
 *  GET: Para consultar y leer recursos */
 
-$app->get('/', function ($request, $response, $args) {
-    $response->write("Welcome to Slim!");
-    return $response;
-});
-
-$app->get('/usuarios[/]', function ($request, $response, $args) {
-    $response->write("Lista de usuarios");
-    
-    return $response;
-});
 
 $app->get('/usuario[/{id}[/{name}]]', function ($request, $response, $args) {
     $response->write("Datos usuario ");
-    var_dump($args);
-    return $response;
-});
-/* POST: Para crear recursos */
-$app->post('/usuario/{id}', function ($request, $response, $args) {
-    $response->write("Welcome to Slim!");
-    var_dump($args);
-    return $response;
-});
-
-// /* PUT: Para editar recursos */
-$app->put('/usuario/{id}', function ($request, $response, $args) {
-    $response->write("Welcome to Slim!");
-    var_dump($args);
-    return $response;
-});
-
-// /* DELETE: Para eliminar recursos */
-$app->delete('/usuario/{id}', function ($request, $response, $args) {
-    $response->write("borrar !", $args->id);
     var_dump($args);
     return $response;
 });
@@ -82,40 +52,37 @@ $app->delete('/usuario/{id}', function ($request, $response, $args) {
 $app->get('/personas[/]', function ($request, $response, $args) {
     $respuesta["listado"]=Usuario::TraerTodosLosUsuarios();
     $response->write(json_encode($respuesta));
-    
     return $response;
 });
 
 
-// // TRAE UNO
-// $app->get('/persona[/{id}[/{name}]]', function ($request, $response, $args) {
-//     $respuesta=Usuario::TraerUnUsuarioPorId($args->id);
-//     $response->write(json_encode($respuesta));
-//     return $response;
-// });
+// TRAE UNO
+$app->get('/persona/{id}', function ($request, $response, $args) {
+    $respuesta=Usuario::TraerUnUsuarioPorId($args["id"]);
+    $response->write(json_encode($respuesta));
+    return $response;
+});
 
 
 // ALTA
-$app->post('/persona/{persona}', function ($request, $response, $args) {
-    $persona=$request->getAttribute('persona');
-    $dato=json_decode($persona);
-    $response->write(Usuario::Agregar($dato));
-    return $response
+$app->post('/persona/{usuario}', function ($request, $response, $args) {
+    $persona=json_decode($args["usuario"]);
+    $response->write(Usuario::Agregar($persona));
+    return $response;
 });
 
-// // MODIFICAR UNO
-// $app->put('/usuario/{id}', function ($request, $response, $args) {
-//     $response->write("Welcome to Slim!");
-//     var_dump($args);
-//     return $response;
-// });
+// MODIFICAR UNO
+$app->put('/persona/{usuario}', function ($request, $response, $args) {
+    $persona=json_decode($args["usuario"]);
+    $response->write(Usuario::Modificar($persona));
+    return $response;
+});
 
-// // BORRAR UNO
-// $app->delete('/usuario/{id}', function ($request, $response, $args) {
-//     $response->write("borrar !", $args->id);
-//     var_dump($args);
-//     return $response;
-// });
+// BORRAR UNO
+$app->delete('/persona/{id}', function ($request, $response, $args) {
+    $response->write(Usuario::Eliminar($args["id"]));
+    return $response;
+});
 
 //---------------------------------------------------------------------
 

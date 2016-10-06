@@ -85,6 +85,19 @@ $authProvider.authHearder='data';
           }
         })
 
+        .state(
+          'persona.detallar',{
+          url:'/personaDetallar/:persona',
+          views:
+          {
+            'contenido':
+            {
+              templateUrl:'perfil.html',
+              controller:'controlPersonaDetallar'
+            }
+          }
+        })
+
 
   $urlRouterProvider.otherwise('/inicio');
 
@@ -183,7 +196,7 @@ miAplicacion.controller('controlPersonaAlta',function($scope, FileUploader, $htt
         $scope.uploader.onCompleteAll = function() {
             console.info('Se cargo con exito');
             var dato=JSON.stringify($scope.persona);
-            $http.post('/persona/'+dato)
+            $http.post('http://localhost:8080/angularABM/ws1/persona/'+dato)
             .then(function(respuesta) {             
                  console.log(respuesta.data);
                  $state.go("persona.menu");
@@ -196,7 +209,7 @@ miAplicacion.controller('controlPersonaAlta',function($scope, FileUploader, $htt
 });
 
 miAplicacion.controller('controlPersonaGrilla',function($scope, $http, $state){
-  $http.get('ws1/personas')
+  $http.get('http://localhost:8080/angularABM/ws1/personas')
   .then(function(respuesta) {       
          $scope.ListadoPersonas = respuesta.data.listado;
          console.log(respuesta.data);
@@ -207,7 +220,7 @@ miAplicacion.controller('controlPersonaGrilla',function($scope, $http, $state){
 
   $scope.Borrar=function(persona){
     console.log("borrar"+persona);
-    $http.post("servidor/nexo.php",{datos:{accion :"borrar",persona:persona}})
+    $http.delete('http://localhost:8080/angularABM/ws1/persona/'+persona.id)
          .then(function(respuesta) {              
                  console.log(respuesta.data);
                   $http.get('servidor/nexo.php', { params: {accion :"traer"}})
@@ -229,6 +242,12 @@ miAplicacion.controller('controlPersonaGrilla',function($scope, $http, $state){
     var dato=JSON.stringify(persona);
     $state.go('persona.modificar', {persona:dato});
   }
+
+  $scope.Informar = function(persona){
+    console.log( JSON.stringify(persona));
+    var dato=JSON.stringify(persona);
+    $state.go('persona.detallar', {persona:dato});
+  }
 });
 
 miAplicacion.controller('controlPersonaModificar',function($scope, $http, $state, $stateParams){
@@ -241,7 +260,8 @@ miAplicacion.controller('controlPersonaModificar',function($scope, $http, $state
   $scope.persona.password=dato.password;
 
   $scope.Guardar=function(){
-      $http.post('servidor/nexo.php', { datos: {accion :"modificar",persona:$scope.persona}})
+      var dato=JSON.stringify($scope.persona);
+      $http.put('http://localhost:8080/angularABM/ws1/persona/'+dato)
         .then(function(respuesta) 
         {      
           console.log(respuesta.data);
@@ -255,3 +275,17 @@ miAplicacion.controller('controlPersonaModificar',function($scope, $http, $state
   }
 });
 
+
+miAplicacion.controller('controlPersonaDetallar',function($scope, $http, $state, $stateParams){
+  var dato=JSON.parse($stateParams.persona);
+  $scope.usuario={};
+
+  $http.get('http://localhost:8080/angularABM/ws1/persona/'+dato.id)
+  .then(function(respuesta) {       
+         $scope.usuario = respuesta.data;
+         console.log(respuesta.data);
+    },function errorCallback(response) {
+         $scope.ListadoPersonas= [];
+        console.log( response);     
+   });
+});
