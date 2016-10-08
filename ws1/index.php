@@ -27,21 +27,12 @@ $app = new Slim\App();
  * argument for `Slim::get`, `Slim::post`, `Slim::put`, `Slim::patch`, and `Slim::delete`
  * is an anonymous function.
  */
-/**
+/*
 * GET: Para consultar y leer recursos
 * POST: Para crear recursos
 * PUT: Para editar recursos
 * DELETE: Para eliminar recursos
-*
-*  GET: Para consultar y leer recursos */
-
-
-$app->get('/usuario[/{id}[/{name}]]', function ($request, $response, $args) {
-    $response->write("Datos usuario ");
-    var_dump($args);
-    return $response;
-});
-
+ */
 
 //---------------------------------------------------------------------
 //---------------------------------------------------------------------
